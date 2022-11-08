@@ -20,6 +20,13 @@ const makeGallery = () => {
 
 makeGallery();
 
+const closeModal = (e) => {
+    if (e.code === 'Escape') {
+        instance.close();
+    }
+    galleryList.remoteEventListener('keydown', closeModal)
+};
+
 galleryList.addEventListener('click', (event) => {
     event.preventDefault();
 
@@ -30,16 +37,9 @@ galleryList.addEventListener('click', (event) => {
     const instance = basicLightbox.create(`
 <img src="${event.target.dataset.source}" alt ="${event.target.alt}" width="800" height="600">
 `)
-console.log(event.target.dataset.source);
+    console.log(event.target.dataset.source);
     instance.show();
-    const closeModal = (e) => {
-        if (e.code === 'Escape') {
-            instance.close();
-        }
-        galleryList.remoteEventListener('keydown', closeModal)
-    };
 
     galleryList.addEventListener('keydown', closeModal);
 
-    
 });
